@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>alpine</title>
+  <link rel="icon" type="image/x-icon" href="" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./pico.min.css">
+  <link href='./lato.css' rel='stylesheet' type='text/css'>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <style>
+    [x-cloak] { display: none !important; }
+    :root {
+      --primary: #546e7a;
+    }
+    svg { height: 52px; width: 52px;}
+    svg path {
+      fill:#BBC6C3;
+    }
+
+  </style>
+</head>
+
+<body>
+  <main class="container" x-data="alpineInstance()">
+
+    <div class="container" x-data="{ activeSlide: 1, slides: [1, 2, 3] }" x-init="setInterval(() => { (activeSlide < 3) ? activeSlide++ : activeSlide = 1 }, 6000)">
+      <!-- Slides -->      
+      <img x-show="activeSlide === 1" src="slide_1.svg" width="100%" height="auto" x-transition:enter.right.duration.300ms>
+      <img x-show="activeSlide === 2" src="slide_2.svg" width="100%" height="auto" x-transition:enter.right.duration.300ms>
+      <img x-show="activeSlide === 3" src="slide_3.svg" width="100%" height="auto" x-transition:enter.right.duration.300ms>
+      <br>
+    </div>
+    
+    <div class="grid">
+      <div>
+        <article>
+          <a href="https://alpinejs.dev">
+          <span style="display: block; background: no-repeat right/25% url(alpinedotjs.svg);">
+            <h2 class="primary">alpine.js</h2>
+          </span>
+          </a>
+          <p>simple, lightweight and powerful javascript framework</p>
+          <footer>~15kb minified and gzipped</footer>
+        </article>
+      </div>
+      <div>
+        <article>
+          <a href="https://picocss.com">
+          <span style="display: block; background: no-repeat right/25% url(picocss.svg);">
+            <h2 class="primary">pico.css</h2>
+          </span>
+          </a>
+          <p>minimal CSS framework for semantic HTML, no need to memorize class names</p>
+          <footer>~10 kB minified and gzipped</footer>
+        </article>
+      </div>
+      <div>
+        <article>
+          <a href="#">
+          <span style="display: block; background: no-repeat right/20% url(local.svg);">
+            <h2 class="primary">local</h2>
+          </span>
+          </a>
+          <p>same origin for all assets, no third-party requests for page resources</p>
+          <footer>-----</footer>
+        </article>
+      </div>
+    </div>
+
+    <!-- begin: user table -->
+    <figure>
+      <table role="grid">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">name</th>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">address</th>
+            <th scope="col">phone</th>
+            <th scope="col">website</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="user in users" :key="user.id">
+            <tr>
+              <td x-text="user.id"></td>
+              <td x-text="user.name"></td>
+              <td x-text="user.username"></td>
+              <td x-text="user.email"></td>
+              <td x-model="user.address.geo">
+                <a x-bind:href="'https://maps.google.com/?q='+user.address.geo.lat+','+user.address.geo.lng" target="_blank">map</a>
+              </td>
+              <td x-model="user.phone"><small x-text="user.phone" /></td>
+              <td x-model="user.website"><a x-text="user.website" :href="'https://'+user.website"></a></td>
+            </tr>
+          </template>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </figure>
+    <!-- end: user table -->
+
+  </div>
+
+  <script>
+    function alpineInstance() {
+      return {
+        title: 'alpine.js + pico.css',
+        intro: 'for a simple, lightweight and powerful template for frontend websites',
+        users: [
+        {
+          "id": 6,
+          "name": "Mrs. Dennis Schulist",
+          "username": "Leopoldo_Corkery",
+          "email": "Karley_Dach@jasper.info",
+          "address": {
+            "street": "Norberto Crossing",
+            "suite": "Apt. 950",
+            "city": "South Christy",
+            "zipcode": "23505-1337",
+            "geo": {
+              "lat": "-71.4197",
+              "lng": "71.7478"
+            }
+          },
+          "phone": "1-477-935-8478 x6430",
+          "website": "ola.org",
+          "company": {
+            "name": "Considine-Lockman",
+            "catchPhrase": "Synchronised bottom-line interface",
+            "bs": "e-enable innovative applications"
+          }
+        },
+        {
+          "id": 7,
+          "name": "Kurtis Weissnat",
+          "username": "Elwyn.Skiles",
+          "email": "Telly.Hoeger@billy.biz",
+          "address": {
+            "street": "Rex Trail",
+            "suite": "Suite 280",
+            "city": "Howemouth",
+            "zipcode": "58804-1099",
+            "geo": {
+              "lat": "24.8918",
+              "lng": "21.8984"
+            }
+          },
+          "phone": "210.067.6132",
+          "website": "elvis.io",
+          "company": {
+            "name": "Johns Group",
+            "catchPhrase": "Configurable multimedia task-force",
+            "bs": "generate enterprise e-tailers"
+          }
+        },
+        {
+          "id": 8,
+          "name": "Nicholas Runolfsdottir V",
+          "username": "Maxime_Nienow",
+          "email": "Sherwood@rosamond.me",
+          "address": {
+            "street": "Ellsworth Summit",
+            "suite": "Suite 729",
+            "city": "Aliyaview",
+            "zipcode": "45169",
+            "geo": {
+              "lat": "-14.3990",
+              "lng": "-120.7677"
+            }
+          },
+          "phone": "586.493.6943 x140",
+          "website": "jacynthe.com",
+          "company": {
+            "name": "Abernathy Group",
+            "catchPhrase": "Implemented secondary concept",
+            "bs": "e-enable extensible e-tailers"
+          }
+        },
+        {
+          "id": 9,
+          "name": "Glenna Reichert",
+          "username": "Delphine",
+          "email": "Chaim_McDermott@dana.io",
+          "address": {
+            "street": "Dayna Park",
+            "suite": "Suite 449",
+            "city": "Bartholomebury",
+            "zipcode": "76495-3109",
+            "geo": {
+              "lat": "24.6463",
+              "lng": "-168.8889"
+            }
+          },
+          "phone": "(775)976-6794 x41206",
+          "website": "conrad.com",
+          "company": {
+            "name": "Yost and Sons",
+            "catchPhrase": "Switchable contextually-based project",
+            "bs": "aggregate real-time technologies"
+          }
+        },
+        {
+          "id": 10,
+          "name": "Clementina DuBuque",
+          "username": "Moriah.Stanton",
+          "email": "Rey.Padberg@karina.biz",
+          "address": {
+            "street": "Kattie Turnpike",
+            "suite": "Suite 198",
+            "city": "Lebsackbury",
+            "zipcode": "31428-2261",
+            "geo": {
+              "lat": "-38.2386",
+              "lng": "57.2232"
+            }
+          },
+          //"phone": "024-648-3804",
+          "website": "ambrose.net",
+          "company": {
+            "name": "Hoeger LLC",
+            "catchPhrase": "Centralized empowering task-force",
+            "bs": "target end-to-end models"
+          }
+        }
+      ]
+      }
+    }
+  </script>
+</body>
+
+</html>
